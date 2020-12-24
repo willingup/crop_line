@@ -1,0 +1,9 @@
+<!--奇怪不能-->
+<launch>
+
+<include file="///home/robot/crop_line/src/start_camera/launch/usb_cam.launch"/>
+
+<!-- Detection crop line node -->
+<node pkg="follow_crop" name="crop_line_tracker" type="start_detect_crop02" cwd="node" output="screen"> </node>
+
+</launch>

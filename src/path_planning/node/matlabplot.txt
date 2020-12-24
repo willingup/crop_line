@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+import os
+
+def get_longitude(filename,i):
+    fopen = open(filename,'r')
+    longitude = []
+    for eachline in fopen:   //一次性读取所有的行
+        group = eachline.split(",")
+        longitude.append(float(group[i]))
+    fopen.close()
+    return longitude
+def get_latitude(filename,i):
+    fopen = open(filename,'r')
+    latitude = []
+    for eachline in fopen:
+        group = eachline.split(",")
+        latitude.append(float(group[i]))
+    fopen.close()
+    return latitude
+ 
+def draw_image(filename,size,color,i):
+    latitude = get_latitude(filename, i)  
+    longitude = get_longitude(filename, i+1)  
+    plt.scatter(longitude, latitude, size,color)
+    plt.ylim(113.3445310,113.3451750)
+    plt.xlim(23.1595690,23.1605700)
+    plt.plot(longitude,latitude,'b')
+    plt.show()
+    plt.xticks(np.arange(min(x), max(x)+1, 1.0))
+    plt.xticks(my_x_ticks)
+    plt.yticks(my_y_ticks)
+   '''
+
+
+if __name__ == '__main__':
+    draw_image("/home/robot/hei/lat.txt",1,"b",0)
+    

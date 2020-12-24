@@ -1,0 +1,8 @@
+prefix=/home/robot/crop_line/devel
+
+Name: start_camera
+Description: Description of start_camera
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/robot/crop_line/devel
+
+Name: opencv_apps
+Description: Description of opencv_apps
+Version: 2.0.0
+Cflags: -I/home/robot/crop_line/devel/include -I/home/robot/crop_line/src/opencv_apps/include
+Libs: -L${prefix}/lib -lopencv_apps
+Requires: std_msgs

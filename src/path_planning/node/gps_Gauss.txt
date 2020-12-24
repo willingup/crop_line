@@ -1,0 +1,20 @@
+参数：
+e2 第一偏心率
+To transform lat lon to XY:
+C:\Python35\python.exe gaussKrugerTransform.py -t GeodeticToPlane "22 15 58.98294" "111 28 52.15387" -e wgs84
+
+Geodetic to plane transformation:  经纬度坐标转平面坐标 wgs84
+x : 2463376.6501757316
+y : 19549592.072119053
+
+To transform XY to lat lon
+C:\Python35\python.exe gaussKrugerTransform.py -t PlaneToGeodetic 2562038.2708 19512837.2851 -e CGCS2000
+
+Plane to geodetic transformation:  平面坐标转经纬度坐标 CGCS2000
+lat(dms) : 23.092871681917128
+lon(dms) : 111.07312980400093
+
+23.092871681917128 means 23°09'28''.71681917128
+所以这个不是严格意义上的十进制
+
+22.26638415 111.48115385278 GeodeticToPlane wgs84

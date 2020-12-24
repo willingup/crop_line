@@ -1,0 +1,20 @@
+1、原来的是 将点的顺序倒置保存到center_change,修改之后发现还是和原来一样，所以现在相对于line19来讲是把这一部分去掉，然后继续
+用以前的特征点集合centers
+ //velocityPub = nh_.advertise<geometry_msgs::Twist>("/cmd_vel",1);
+geometry_msgs::Twist output;
+output.angular.z=PID_Position_float(flight_angle,0,&pid_message);
+
+  /*
+    Pid_Structure pid_message;
+    pid_message.kp=0.01;
+    pid_message.ki=0;
+    pid_message.kd=0;
+    pid_message.outputLimit=0.5;
+*/
+
+程序的思路：
+主函数 实例化一个对象
+订阅图象的时候，回调函数进行处理，回调函数是imageCallback（），在回调函数中先把图象转为可以在用opencv处理的，
+然后调用检测秧苗线的函数，然后再把处理好的带有直线检测的图象发布出去，以供上层进行监督。
+
+期间在检测秧苗线的过程中，会把角度发布出去。

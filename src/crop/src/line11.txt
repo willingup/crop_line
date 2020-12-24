@@ -1,0 +1,12 @@
+
+result = atan (param) * 180 / PI;  //将弧度转换为度
+
+修改时间是16号，添加程序运行时间
+
+原来是640，现在我改成了500
+point02.x = 640;
+point02.y = k*(640-point0.x)+point0.y;
+
+为了使ROI中心是图象的中心，所以修改ROI的选择规则
+原来是这个
+Mat roi=src(Rect(width/4,50,width/2,height-150));

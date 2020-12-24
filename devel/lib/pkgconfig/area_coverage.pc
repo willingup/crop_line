@@ -1,0 +1,8 @@
+prefix=/home/robot/crop_line/devel
+
+Name: area_coverage
+Description: Description of area_coverage
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

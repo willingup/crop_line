@@ -1,0 +1,23 @@
+对拟合直线的参数进行修改
+
+原来是这个
+cv::fitLine(centers, line_para, cv::DIST_L2, 0, 1e-2, 1e-2);
+
+新的是
+cv::fitLine(centers_change, line_para, cv::DIST_L1, 0, 1e-2, 1e-2);
+
+CV_DIST_L1 =1, /* distance = |x1-x2| + |y1-y2| */
+CV_DIST_L2 =2, /* the simple euclidean distance */
+--------------------------------------------------------
+ cv::line()
+第一个参数img：要划的线所在的图像;
+
+第二个参数pt1：直线起点
+
+第二个参数pt2：直线终点
+
+第三个参数color：直线的颜色 e.g:Scalor(0,0,255)
+
+第四个参数thickness=1：线条粗细
+
+第五个参数line_type=8, 

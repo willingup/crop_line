@@ -1,0 +1,93 @@
+代码中写了两种ROI区域的选择
+方法一：cvLoadImage（）
+这种方法需要转到指针，不能直接用Mat，感觉很麻烦，由于后续的图像进行处理是要用Mat的，所以选第二种
+方法二：Rect
+
+    //EXG image
+    Mat gray_img;
+    EXG(img1,gray_img);
+    imshow("gray image", gray_img);
+
+    Mat dst;
+    int thresh=0;
+    double t2 = (double)cv::getTickCount();
+	thresh=Otsu(gray_img, dst, thresh);
+    cv::namedWindow("OTSU", CV_WINDOW_NORMAL);
+	cv::imshow("OTSU", dst);
+    
+    
+    Mat close_img;
+    Mat element = getStructuringElement(MORPH_RECT, Size(8, 8));
+    morphologyEx(dst, close_img, MORPH_CLOSE, element);
+    namedWindow("Display Morphological operation", 0 );
+    imshow("Display Morphological operation",close_img);
+    
+    String outpath = "/home/robot/pictures/old/pic";
+    int t = 0;
+    int m = close_img.rows /30 ;
+    //int m=19;
+    std::vector<Mat> ceil_img;
+    std::vector<int> name;
+
+    for (t; t < m; t++)
+       name.push_back(t);
+    Mat image_cut, roi_img, tim_img;
+    
+    int i=1;
+    for( i;i < m;i = i + 2){
+       cout<<i<<endl;
+       Rect rect(0, close_img.rows-30*i, close_img.cols, 30);
+       image_cut = Mat(close_img, rect);
+       
+       vector<vector<Point> > contours;
+       vector<Vec4i> hierarchy;
+       findContours(image_cut, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE); //CV_RETR_EXTERNAL只检测外部轮廓，可根据自身需求进行调整
+       Mat contoursImage(image_cut.rows, image_cut.cols, CV_8U, Scalar(255));
+  
+       for (int index = 0; index >= 0; index = hierarchy[index][0]) {
+		   cv::Scalar color(rand() & 255, rand() & 255, rand() & 255);
+		   //cv::drawContours(contoursImage, contours, index, Scalar(0), 3, 8, hierarchy);
+		   Rect rect = boundingRect(contours[index]);//检测外轮廓
+		   rectangle(contoursImage, rect, Scalar(0,0,255), 1);//对外轮廓加矩形框
+      }
+       roi_img = contoursImage.clone();
+       ceil_img.push_back(roi_img);
+
+    }
+
+    imwrite(outpath+to_string(name[0])+".jpg",ceil_img[0]);
+    imwrite(outpath+to_string(name[1])+".jpg",ceil_img[1]);
+    imwrite(outpath+to_string(name[2])+".jpg",ceil_img[2]);
+    imwrite(outpath+to_string(name[3])+".jpg",ceil_img[3]);
+    imwrite(outpath+to_string(name[4])+".jpg",ceil_img[4]);
+    imwrite(outpath+to_string(name[5])+".jpg",ceil_img[5]);
+    imwrite(outpath+to_string(name[6])+".jpg",ceil_img[6]);
+    imwrite(outpath+to_string(name[7])+".jpg",ceil_img[7]);
+
+    /*
+    for (int t=0; t < i;){
+        cout<<t<<endl;
+        imwrite(outpath +to_string(name[t])+".jpg", ceil_img[t]);
+        t = t + 1;
+        
+    }
+    */
+     
+     /*
+     Mat cut_img = ceil_img[0];
+     vector<vector<Point> > contours;
+     vector<Vec4i> hierarchy;
+     findContours(cut_img, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE); //CV_RETR_EXTERNAL只检测外部轮廓，可根据自身需求进行调整
+     Mat contoursImage(cut_img.rows, cut_img.cols, CV_8U, Scalar(255));
+  
+     for (int index = 0; index >= 0; index = hierarchy[index][0]) {
+		cv::Scalar color(rand() & 255, rand() & 255, rand() & 255);
+		//cv::drawContours(contoursImage, contours, index, Scalar(0), 3, 8, hierarchy);
+		Rect rect = boundingRect(contours[index]);//检测外轮廓
+		rectangle(contoursImage, rect, Scalar(0,0,255), 3);//对外轮廓加矩形框
+      }
+ */
+
+    //imwrite("/home/robot/pictures/00.jpg", contoursImage);
+    //cv::imshow("contour_Image", contoursImage);
+
